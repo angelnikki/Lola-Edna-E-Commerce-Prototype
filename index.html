@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lola Edna's Homemade Food</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            lucide.createIcons();
+        });
+        </script>
+
+</head>
+<body>
+
+  <!-- ── TOAST ── -->
+  <div id="toast"></div>
+
+  <!-- ── ORDER TYPE BAR ── -->
+  <div class="order-type-bar">
+    <span class="order-type-label"><i data-lucide="shopping-bag" class="inline-icon"></i> Order Type:</span>
+    <div class="toggle-group">
+      <button class="toggle-btn active" id="btnRetail"    onclick="setOrderType('retail')">Retail</button>
+      <button class="toggle-btn"        id="btnWholesale" onclick="setOrderType('wholesale')">Wholesale</button>
+    </div>
+    <span id="orderTypeNote" style="color:var(--tan);font-size:.78rem;">Standard pricing for individual buyers</span>
+  </div>
+  <div class="promo-banner hidden" id="promoBanner">
+    <i data-lucide="gift" class="inline-icon"></i> <strong>WHOLESALE PROMO:</strong> Buy 6 jars of any flavor &amp; get <strong>10% OFF</strong> your total! · Auto-applied at checkout. <i data-lucide="gift" class="inline-icon"></i>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       NAVBAR
+       ════════════════════════════════════════ -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-text">
+        <span class="brand">Lola Edna's</span>
+        <span class="sub">Homemade Food</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#how">How to Order</a></li>
+      <li><a href="#orders">My Orders</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-seller-access" onclick="openSellerPanel()" title="Seller Panel"><i data-lucide="user-cog" class="inline-icon"></i> Seller</button>
+      <button class="btn-icon" id="cartBtn" title="View Cart" onclick="openCart()">
+        <i data-lucide="shopping-cart"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="btn-nav-login" onclick="openAuth()">Sign In</button>
+    </div>
+  </nav>
+
+  <!-- ════════════════════════════════════════
+       HERO
+       ════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <span class="hero-badge"><i data-lucide="sparkles" class="inline-icon"></i> No Preservatives · All Natural</span>
+        <h1 class="hero-title">
+          <span class="script">Lola Edna's</span>
+          Homemade<br>Goodness
+        </h1>
+        <p class="hero-desc">Authentic, handcrafted spreads and jams made with love — from Lola's kitchen to your table. Available in 320g jars, packed with flavor and zero artificial additives.</p>
+        <div class="hero-cta">
+          <a href="#products" class="btn-primary"><i data-lucide="shopping-bag" class="inline-icon"></i> Shop Now</a>
+          <a href="#about"    class="btn-outline">Our Story</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-jars">
+          <div class="jar-card"><img src="assets/coffeepeanutbutter.jpg" class="jar-img" alt="Coffee Peanut Butter"><div class="jname">Coffee Peanut Butter</div><div class="jprice">320g — ₱120</div></div>
+          <div class="jar-card"><img src="assets/cocojam.png" class="jar-img" alt="Special Coco Jam"><div class="jname">Special Coco Jam</div><div class="jprice">320g — ₱110</div></div>
+          <div class="jar-card"><img src="assets/chocolatepeanutbutter.jpg" class="jar-img" alt="Chocolate Peanut Butter"><div class="jname">Chocolate Peanut Butter</div><div class="jprice">320g — ₱120</div></div>
+          <div class="jar-card"><img src="assets/classicpeanutbutter.jpg" class="jar-img" alt="Classic Peanut Butter"><div class="jname">Classic Peanut Butter</div><div class="jprice">320g — ₱100</div></div>
+        </div>
+        <div class="hero-notice">
+          <i data-lucide="credit-card" class="inline-icon"></i> COD &amp; GCash accepted &nbsp;·&nbsp; <i data-lucide="truck" class="inline-icon"></i> Delivery or Pickup &nbsp;·&nbsp; <i data-lucide="package" class="inline-icon"></i> Min. 1 jar per order
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FEATURES STRIP
+       ════════════════════════════════════════ -->
+  <div class="features">
+    <div class="features-inner">
+      <div class="feature-item"><i data-lucide="leaf" class="ficon"></i><div class="ftitle">All Natural</div><div class="fdesc">No preservatives added</div></div>
+      <div class="feature-item"><i data-lucide="chef-hat" class="ficon"></i><div class="ftitle">Homemade</div><div class="fdesc">Crafted by Lola Edna herself</div></div>
+      <div class="feature-item"><i data-lucide="banknote" class="ficon"></i><div class="ftitle">COD & GCash</div><div class="fdesc">Your preferred payment</div></div>
+      <div class="feature-item"><i data-lucide="store" class="ficon"></i><div class="ftitle">Delivery & Pickup</div><div class="fdesc">Choose what's convenient</div></div>
+      <div class="feature-item"><i data-lucide="smartphone" class="ficon"></i><div class="ftitle">Easy Ordering</div><div class="fdesc">Order online, anytime</div></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       PRODUCTS
+       ════════════════════════════════════════ -->
+  <section id="products">
+    <div class="section-inner">
+      <div class="products-header">
+        <div>
+          <div class="section-label">Our Products</div>
+          <h2 class="section-title">Freshly Made, <em>Everyday</em></h2>
+        </div>
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-cat="all"           onclick="filterProducts('all', this)">All</button>
+          <button class="filter-tab"        data-cat="peanut-butter" onclick="filterProducts('peanut-butter', this)">Peanut Butter</button>
+          <button class="filter-tab"        data-cat="jam"           onclick="filterProducts('jam', this)">Jams</button>
+          <button class="filter-tab"        data-cat="sweets"        onclick="filterProducts('sweets', this)">Sweets</button>
+          <button class="filter-tab"        data-cat="appetizers"    onclick="filterProducts('appetizers', this)">Appetizers</button>
+        </div>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       ABOUT
+       ════════════════════════════════════════ -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-visual">
+          <img src="assets/lolaednapic.png" alt="Lola Edna" class="about-big-img" />
+          <div class="about-badge-float">
+            <div class="big-num">402</div>
+            <div class="label">Happy Followers</div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Our Story</div>
+          <h2 class="section-title">Made with <em>Love</em> from Lola's Kitchen</h2>
+          <p class="section-desc">Lola Edna's Homemade Food started as a passion project — a desire to share the authentic flavors of Filipino homemade spreads with friends, family, and the community. Every jar is personally crafted using traditional recipes, with absolutely no preservatives or artificial flavors.</p>
+          <ul class="about-list">
+            <li>All products are handcrafted in small batches to ensure freshness and quality.</li>
+            <li>Sourced from trusted local ingredients — supporting Filipino farmers and suppliers.</li>
+            <li>No artificial flavors, no preservatives — just pure, natural goodness in every bite.</li>
+            <li>Proudly a Filipino home-based food business serving the local community.</li>
+          </ul>
+          <br>
+          <a href="#products" class="btn-primary" style="display:inline-flex;"><i data-lucide="shopping-cart" class="inline-icon"></i> Order Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       HOW IT WORKS
+       ════════════════════════════════════════ -->
+  <section id="how">
+    <div class="section-inner">
+      <div class="section-label">Simple Process</div>
+      <h2 class="section-title">How to Order</h2>
+      <p class="section-desc">Ordering from Lola Edna's is easy — just a few steps and your favorite spread is on its way!</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><i data-lucide="clipboard-list" class="step-icon"></i><div class="step-title">Browse &amp; Select</div><div class="step-desc">Browse our product catalog and pick your favorite flavors. Add them to your cart.</div></div>
+        <div class="step"><div class="step-num">02</div><i data-lucide="shopping-cart" class="step-icon"></i><div class="step-title">Review Cart</div><div class="step-desc">Review your order, adjust quantities, and confirm everything looks good.</div></div>
+        <div class="step"><div class="step-num">03</div><i data-lucide="file-check" class="step-icon"></i><div class="step-title">Place Order</div><div class="step-desc">Fill in your delivery details and submit. Pay via COD or GCash.</div></div>
+        <div class="step"><div class="step-num">04</div><i data-lucide="truck" class="step-icon"></i><div class="step-title">Track &amp; Receive</div><div class="step-desc">Track your order status — from Preparing to Out for Delivery. Get your digital receipt!</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       MY ORDERS
+       ════════════════════════════════════════ -->
+  <section id="orders">
+    <div class="section-inner">
+      <div class="section-label">Order Tracking</div>
+      <h2 class="section-title">My <em>Orders</em></h2>
+      <p class="section-desc">Track the status of your orders in real-time.</p>
+      <div id="ordersContainer">
+        <div class="no-orders-msg">No orders yet. <a href="#products" style="color:var(--amber);font-weight:700;">Start shopping!</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+       ════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="fname">Lola Edna's</div>
+        <p class="fdesc">Authentic homemade food made with love. No preservatives, no artificial flavors — just pure, natural goodness for your family.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#how">How to Order</a></li>
+          <li><a href="#orders">My Orders</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#"><i data-lucide="message-circle" class="inline-icon"></i> Message on Facebook</a></li>
+          <li><a href="#"><i data-lucide="credit-card" class="inline-icon"></i> COD &amp; GCash Payment</a></li>
+          <li><a href="#"><i data-lucide="truck" class="inline-icon"></i> Delivery &amp; Pickup</a></li>
+          <li><a href="#"><i data-lucide="clock" class="inline-icon"></i> Mon–Sat, 8AM–6PM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Lola Edna's Homemade Food. All rights reserved.</p>
+      <p>Developed for CSP 115 – HCI | University of Caloocan City</p>
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════
+       CART PANEL
+       ════════════════════════════════════════ -->
+  <div class="overlay" id="cartOverlay" onclick="handleCartOverlayClick(event)">
+    <div class="cart-panel" id="cartPanel">
+      <div class="cart-header">
+        <h2><i data-lucide="shopping-cart" class="inline-icon"></i> Your Cart</h2>
+        <button class="btn-close" onclick="closeCart()"><i data-lucide="x"></i></button>
+      </div>
+      <div class="cart-items" id="cartItems">
+        <div class="cart-empty"><i data-lucide="shopping-cart" class="empty-icon"></i><p>Your cart is empty</p></div>
+      </div>
+      <div class="cart-footer" id="cartFooter" style="display:none;">
+        <div class="cart-summary">
+          <div class="cart-row"><span>Subtotal</span><span id="cartSubtotal">₱0.00</span></div>
+          <div class="cart-row"><span>Delivery</span><span>To be confirmed</span></div>
+          <div class="cart-total cart-row"><span>Total</span><span id="cartTotal">₱0.00</span></div>
+        </div>
+        <button class="btn-checkout" onclick="openCheckout()">Proceed to Checkout →</button>
+        <div class="cart-cod-note"><i data-lucide="credit-card" class="inline-icon"></i> COD or GCash accepted</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       AUTH MODAL
+       ════════════════════════════════════════ -->
+  <div class="auth-overlay" id="authOverlay" onclick="handleAuthOverlayClick(event)">
+    <div class="auth-box" id="authBox">
+      <h2 id="authTitle">Welcome Back</h2>
+      <p class="auth-sub" id="authSub">Sign in to track your orders</p>
+      <div id="authForm">
+        <div id="registerName" class="form-group" style="display:none;">
+          <label>Full Name</label>
+          <input type="text" id="inputName" placeholder="e.g. Maria Santos" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="inputEmail" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="inputPassword" placeholder="••••••••" />
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="handleAuth()">
+          <span id="authBtnText">Sign In</span>
+        </button>
+      </div>
+      <div class="auth-switch" id="authSwitch">
+        Don't have an account? <a onclick="toggleAuth()">Register here</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       CHECKOUT MODAL
+       ════════════════════════════════════════ -->
+  <div class="checkout-overlay" id="checkoutOverlay" onclick="handleCheckoutOverlayClick(event)">
+    <div class="checkout-box" id="checkoutBox">
+
+      <!-- Checkout Form -->
+      <div id="checkoutForm">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+          <h2>Checkout</h2>
+          <button class="btn-close" onclick="closeCheckout()"><i data-lucide="x"></i></button>
+        </div>
+
+        <div class="checkout-section-title">Delivery Information</div>
+        <div class="wholesale-note" id="wholesaleNoteCheckout"><i data-lucide="package" class="inline-icon"></i> <strong>Wholesale Order</strong> — Minimum 6 jars required. 10% promo discount applied automatically if 6+ jars in cart.</div>
+        <div class="form-group"><label>Full Name</label><input type="text" id="co-name" placeholder="Maria Santos" /></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" id="co-phone" placeholder="09XX XXX XXXX" /></div>
+
+        <div class="checkout-section-title">Fulfillment Method</div>
+        <div class="fulfillment-toggle">
+          <button class="fulfill-btn active" id="btnDelivery" onclick="setFulfillment('delivery')"><i data-lucide="truck" class="inline-icon"></i> Delivery</button>
+          <button class="fulfill-btn"        id="btnPickup"   onclick="setFulfillment('pickup')"><i data-lucide="store" class="inline-icon"></i> Pickup</button>
+        </div>
+        <div id="addressGroup">
+          <div class="form-group"><label>Delivery Address</label><input type="text" id="co-address" placeholder="House No., Street, Barangay, City" /></div>
+        </div>
+        <div id="pickupNote" style="display:none;background:rgba(200,115,26,.1);border:1.5px solid var(--amber);border-radius:12px;padding:.8rem 1rem;font-size:.84rem;color:var(--brown-mid);margin-bottom:1rem;">
+          <i data-lucide="map-pin" class="inline-icon"></i> <strong>Pickup:</strong> Please pick up your order at Lola Edna's kitchen. We'll message you the exact schedule!
+        </div>
+
+        <div class="checkout-section-title">Preferred Delivery / Pickup Date</div>
+        <div class="form-group">
+          <label>Choose Date &amp; Time</label>
+          <input type="datetime-local" id="co-datetime" />
+        </div>
+
+        <div class="form-group"><label>Order Notes (Optional)</label><input type="text" id="co-notes" placeholder="e.g. Please ring the bell" /></div>
+
+        <div class="checkout-section-title">Payment Method</div>
+        <div class="payment-toggle">
+          <button class="pay-btn active" id="payBtnCOD"   onclick="setPayment('cod')"><i data-lucide="banknote" class="inline-icon"></i> COD</button>
+          <button class="pay-btn"        id="payBtnGcash" onclick="setPayment('gcash')"><i data-lucide="smartphone" class="inline-icon"></i> GCash</button>
+        </div>
+        <div class="cod-badge" id="codBadgeEl"><i data-lucide="banknote" class="inline-icon"></i> <span><strong>Cash on Delivery (COD)</strong> — Pay when your order arrives.</span></div>
+        <div class="gcash-info" id="gcashInfoEl">
+          <div style="font-size:.8rem;color:#0074e0;font-weight:700;letter-spacing:.06em;margin-bottom:.4rem;"><i data-lucide="smartphone" class="inline-icon"></i> GCASH PAYMENT DETAILS</div>
+          <div class="gcash-num">0917 123 4567</div>
+          <div class="gcash-name">Edna M. Santos · Lola Edna's Homemade Food</div>
+          <div style="font-size:.75rem;color:#555;margin-top:.5rem;"><i data-lucide="alert-circle" class="inline-icon" style="color:#856404;"></i> Please send your screenshot as proof of payment via Facebook message.</div>
+        </div>
+
+        <div id="checkoutOrderSummary" style="margin-bottom:1.2rem;"></div>
+        <button class="btn-checkout" onclick="placeOrder()"><i data-lucide="check-circle" class="inline-icon"></i> Place Order</button>
+      </div>
+
+      <!-- Success Screen -->
+      <div id="checkoutSuccess" style="display:none;">
+        <div style="display:flex;justify-content:flex-end;"><button class="btn-close" onclick="closeCheckout()"><i data-lucide="x"></i></button></div>
+        <div class="order-success">
+          <i data-lucide="check-circle" class="success-icon"></i>
+          <h3>Order Placed!</h3>
+          <p>Thank you! Your order is now <strong>awaiting seller approval</strong>. Lola Edna will confirm it shortly.</p>
+          <div class="order-id" id="successOrderId"></div>
+          <p style="font-size:.82rem;color:var(--text-light);">Track your order in the <a href="#orders" style="color:var(--amber);font-weight:700;" onclick="closeCheckout()">My Orders</a> section.</p>
+          <br>
+          <div style="display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;">
+            <button class="btn-primary"  style="margin:0;" onclick="viewReceipt()"><i data-lucide="receipt" class="inline-icon"></i> View Receipt</button>
+            <button class="btn-outline"  style="margin:0;color:var(--brown-dark);border-color:var(--brown-dark);" onclick="closeCheckout()">Continue Shopping</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       CANCEL CONFIRM MODAL
+       ════════════════════════════════════════ -->
+  <div class="cancel-confirm-overlay" id="cancelConfirmOverlay">
+    <div class="cancel-confirm-box">
+      <i data-lucide="alert-triangle" class="cancel-icon"></i>
+      <h3>Cancel Order?</h3>
+      <p>Are you sure you want to cancel order <strong id="cancelOrderIdDisplay"></strong>? This action cannot be undone.</p>
+      <div class="cancel-btn-row">
+        <button class="btn-keep"           onclick="closeCancelConfirm()">Keep Order</button>
+        <button class="btn-confirm-cancel" onclick="confirmCancelOrder()">Yes, Cancel It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       SELLER PANEL
+       ════════════════════════════════════════ -->
+  <div class="seller-panel-overlay" id="sellerPanelOverlay" onclick="handleSellerOverlayClick(event)">
+    <div class="seller-panel" id="sellerPanel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+        <div>
+          <h2><i data-lucide="layout-dashboard" class="inline-icon"></i> Seller Dashboard</h2>
+          <div class="sp-sub">Manage orders, customers, and reports</div>
+        </div>
+        <button class="btn-close" onclick="closeSellerPanel()"><i data-lucide="x"></i></button>
+      </div>
+
+      <!-- Tabs -->
+      <div class="sp-tabs">
+        <button class="sp-tab active" onclick="switchSpTab('pending',    this)"><i data-lucide="clock" class="inline-icon"></i> Pending</button>
+        <button class="sp-tab"        onclick="switchSpTab('allorders',  this)"><i data-lucide="package" class="inline-icon"></i> All Orders</button>
+        <button class="sp-tab"        onclick="switchSpTab('manual',     this)"><i data-lucide="pen-tool" class="inline-icon"></i> Manual Order</button>
+        <button class="sp-tab"        onclick="switchSpTab('customers',  this)"><i data-lucide="users" class="inline-icon"></i> Customers</button>
+        <button class="sp-tab"        onclick="switchSpTab('reports',    this)"><i data-lucide="bar-chart-2" class="inline-icon"></i> Reports</button>
+        <button class="sp-tab"        onclick="switchSpTab('stock',      this)"><i data-lucide="tags" class="inline-icon"></i> Stock</button>
+      </div>
+
+      <!-- Tab: Pending Orders -->
+      <div class="sp-tab-content active" id="sp-pending">
+        <div id="sellerOrdersList"><div class="no-pending">No pending orders yet.</div></div>
+      </div>
+
+      <!-- Tab: All Orders -->
+      <div class="sp-tab-content" id="sp-allorders">
+        <div class="orders-table-wrap">
+          <table class="orders-table" id="allOrdersTable">
+            <thead>
+              <tr>
+                <th>Order ID</th><th>Customer</th><th>Items</th>
+                <th>Total</th><th>Payment</th><th>Status</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="allOrdersBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab: Manual / FB Order -->
+      <div class="sp-tab-content" id="sp-manual">
+        <div style="font-size:.8rem;color:var(--text-light);margin-bottom:1rem;">Enter an order directly on behalf of a customer (walk-in, phone call, or Facebook message).</div>
+        <div class="manual-order-form">
+          <div class="form-group"><label>Customer Name</label><input type="text" id="mo-name" placeholder="Maria Santos" /></div>
+          <div class="form-group"><label>Phone</label><input type="tel" id="mo-phone" placeholder="09XX XXX XXXX" /></div>
+          <div class="form-group"><label>Address / Notes</label><input type="text" id="mo-address" placeholder="Delivery address or 'Pickup'" /></div>
+          <div class="form-group">
+            <label>Order Source</label>
+            <select id="mo-source">
+              <option value="direct"> Walk-in / Direct</option>
+              <option value="fb"> Facebook Message</option>
+              <option value="phone"> Phone Call</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Payment Method</label>
+            <select id="mo-payment">
+              <option value="cod"> Cash on Delivery</option>
+              <option value="gcash"> GCash</option>
+              <option value="cash"> Cash (Walk-in)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Order Type</label>
+            <select id="mo-type">
+              <option value="retail">Retail</option>
+              <option value="wholesale">Wholesale</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-mid);margin-bottom:.5rem;">Items</label>
+            <div class="manual-order-items" id="moItemsContainer">
+              <div class="manual-item-row">
+                <select class="mo-product-sel"><option value="">— Select Product —</option></select>
+                <input type="number" min="1" value="1" class="mo-qty-inp" />
+                <button class="btn-rm-item" onclick="removeMoItem(this)"><i data-lucide="trash-2" class="inline-icon" style="margin:0;"></i></button>
+              </div>
+            </div>
+            <button class="btn-add-item" onclick="addMoItem()"><i data-lucide="plus" class="inline-icon"></i> Add Item</button>
+          </div>
+          <div class="form-group"><label>Preferred Delivery Date</label><input type="datetime-local" id="mo-datetime" /></div>
+          <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitManualOrder()"><i data-lucide="check" class="inline-icon"></i> Submit Order</button>
+        </div>
+      </div>
+
+      <!-- Tab: Customers -->
+      <div class="sp-tab-content" id="sp-customers">
+        <div style="font-size:.8rem;color:var(--text-light);margin-bottom:1rem;">All customers who have placed orders (contact reference list).</div>
+        <div id="customersList"><div class="no-pending">No customers yet.</div></div>
+      </div>
+
+      <!-- Tab: Reports -->
+      <div class="sp-tab-content" id="sp-reports">
+        <div class="report-grid" id="reportSummary"></div>
+        <div class="report-section-title">Top Products Ordered</div>
+        <ul class="top-products-list" id="topProductsList"></ul>
+        <div class="report-section-title">Order Sources</div>
+        <ul class="top-products-list" id="sourcesList"></ul>
+        <div class="report-section-title">Payment Methods</div>
+        <ul class="top-products-list" id="paymentsList"></ul>
+      </div>
+
+      <!-- Tab: Stock -->
+      <div class="sp-tab-content" id="sp-stock">
+        <div style="font-size:.8rem;color:var(--text-light);margin-bottom:1rem;">Manage product stock levels.</div>
+        <div id="stockList"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       SELLER LOGIN MODAL
+       ════════════════════════════════════════ -->
+  <div class="seller-login-overlay" id="sellerLoginOverlay">
+    <div class="seller-login-box">
+      <i data-lucide="lock" class="seller-login-icon"></i>
+      <h2>Seller Access</h2>
+      <p class="slb-sub">Only the owner/admin can access the Seller Dashboard. Please log in to continue.</p>
+      <div class="seller-login-error" id="sellerLoginError">Incorrect username or password.</div>
+      <div class="form-group" style="text-align:left;">
+        <label>Username</label>
+        <input type="text" id="sellerLoginUser" placeholder="admin" autocomplete="off" />
+      </div>
+      <div class="form-group" style="text-align:left;">
+        <label>Password</label>
+        <input type="password" id="sellerLoginPass" placeholder="password" onkeydown="if(event.key==='Enter')doSellerLogin()" />
+      </div>
+      <button class="btn-primary"  style="width:100%;justify-content:center;margin-bottom:.8rem;" onclick="doSellerLogin()">Login to Dashboard</button>
+      <button class="btn-outline"  style="width:100%;justify-content:center;color:var(--brown-dark);border-color:var(--tan);" onclick="closeSellerLogin()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       REVIEWS OVERLAY
+       ════════════════════════════════════════ -->
+  <div class="reviews-overlay" id="reviewsOverlay" onclick="handleReviewsOverlayClick(event)">
+    <div class="reviews-box" id="reviewsBox">
+      <div class="reviews-header">
+        <div class="reviews-header-info">
+          <div class="reviews-product-name" id="reviewsProductName"></div>
+          <div class="reviews-avg-row">
+            <span class="reviews-big-stars" id="reviewsBigStars"></span>
+            <span class="reviews-avg-num"   id="reviewsAvgNum"></span>
+            <span class="reviews-avg-count" id="reviewsAvgCount"></span>
+          </div>
+        </div>
+        <button class="btn-close" onclick="closeReviews()" style="margin-left:1rem;"><i data-lucide="x"></i></button>
+      </div>
+      <div class="reviews-body" id="reviewsBody"></div>
+      <div class="reviews-footer">
+        <button class="btn-close-reviews" onclick="closeReviews()">Close</button>
+        <button class="btn-write-review"  onclick="closeReviews();setTimeout(()=>openRating(currentReviewProductId),200)"><i data-lucide="star" class="inline-icon"></i> Write a Review</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       RATING MODAL
+       ════════════════════════════════════════ -->
+  <div class="rating-overlay" id="ratingOverlay">
+    <div class="rating-box">
+      <div style="display:flex;justify-content:flex-end;"><button class="btn-close" onclick="closeRating()"><i data-lucide="x"></i></button></div>
+      <h3>Rate This Product</h3>
+      <div class="rating-product-name" id="ratingProductName"></div>
+      <p>How was your experience with this product?</p>
+      <div class="star-picker" id="starPicker">
+        <button class="star-btn" data-val="1" onclick="selectStar(1)">&#x2605;</button>
+        <button class="star-btn" data-val="2" onclick="selectStar(2)">&#x2605;</button>
+        <button class="star-btn" data-val="3" onclick="selectStar(3)">&#x2605;</button>
+        <button class="star-btn" data-val="4" onclick="selectStar(4)">&#x2605;</button>
+        <button class="star-btn" data-val="5" onclick="selectStar(5)">&#x2605;</button>
+      </div>
+      <div class="form-group" style="margin-top:1rem;">
+        <label style="font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-mid);display:block;margin-bottom:.5rem;">Your Message (optional)</label>
+        <textarea id="ratingMessage" placeholder="Share your experience with this product..."
+          style="width:100%;border:2px solid var(--tan-light);border-radius:12px;padding:.75rem 1rem;font-size:.9rem;font-family:'Lato',sans-serif;resize:vertical;min-height:80px;color:var(--brown-dark);"
+          onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--tan-light)'"></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitRating()">Submit Review</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       RECEIPT MODAL
+       ════════════════════════════════════════ -->
+  <div class="receipt-overlay" id="receiptOverlay">
+    <div class="receipt-box" id="receiptBox">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:.5rem;">
+        <button class="btn-close" onclick="closeReceipt()"><i data-lucide="x"></i></button>
+      </div>
+      <div class="receipt-header">
+        <div class="receipt-logo">Lola Edna's</div>
+        <div class="receipt-sub">Homemade Food · Digital Receipt</div>
+        <div class="receipt-id" id="rcptOrderId"></div>
+        <div style="font-size:.75rem;color:var(--text-light);margin-top:.3rem;" id="rcptDate"></div>
+      </div>
+      <div id="rcptCustomer"></div>
+      <hr class="receipt-divider">
+      <div id="rcptItems"></div>
+      <hr class="receipt-divider">
+      <div id="rcptTotals"></div>
+      <div class="receipt-footer">
+        <p><i data-lucide="heart" class="inline-icon" style="color:var(--amber);fill:var(--amber);"></i> Salamat! Thank you for supporting Lola Edna's Homemade Food.</p>
+        <p style="margin-top:.3rem;">No preservatives · All natural · Made with love <i data-lucide="heart" class="inline-icon" style="color:var(--amber);fill:var(--amber);"></i></p>
+      </div>
+      <button class="btn-print" onclick="window.print()"><i data-lucide="printer" class="inline-icon"></i> Print Receipt</button>
+    </div>
+  </div>
+    <script src="script.js"></script>
+</body>
+</html>
