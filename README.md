@@ -1,6 +1,6 @@
 # Lola Edna’s Homemade Food – E-Commerce Prototype
 
-*Note: This is an old second-year academic project from our CSP 115 - Human Computer Interaction class, originally submitted in March 2026. I've uploaded this repository for archiving purposes.*
+*Note: This is an old second-year academic project from our CSP 115 - Human Computer Interaction class, originally submitted in April 2026. I've uploaded this repository for archiving purposes.*
 
 ## About the Project
 
