@@ -30,7 +30,7 @@ Yep, Full Stack Dev days lol
 
 **Instructor:** Kamil Jade Corpus  
 **Course:** CSP 115 - Human Computer Interaction  
-**Original Submission Date:** March 15, 2026  
+**Original Submission Date:** April 14, 2026  
 **Repository Upload Date:** October 3, 2026  
 
 ## How to Run
